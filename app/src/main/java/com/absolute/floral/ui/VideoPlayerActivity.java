@@ -11,10 +11,10 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,7 +114,7 @@ public class VideoPlayerActivity extends ThemeableActivity {
         final PlaybackControlView playbackControlView = (PlaybackControlView)
                 findViewById(R.id.playback_control_view).getParent();
         final View bottomBarControls = findViewById(R.id.controls);
-        playbackControlView.setVisibilityListener(
+        playbackControlView.addVisibilityListener(
                 new PlaybackControlView.VisibilityListener() {
                     @Override
                     public void onVisibilityChange(final int i) {
@@ -264,7 +264,7 @@ public class VideoPlayerActivity extends ThemeableActivity {
         DefaultRenderersFactory renderersFactory = new DefaultRenderersFactory(this);
 
         // Create the player
-        player = ExoPlayerFactory.newSimpleInstance(renderersFactory,
+        player = ExoPlayerFactory.newSimpleInstance(this, renderersFactory,
                 new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(null)),
                 new DefaultLoadControl());
 
@@ -357,10 +357,7 @@ public class VideoPlayerActivity extends ThemeableActivity {
 
     public static class SimpleEventListener implements Player.EventListener {
 
-        @Override
-        public void onTimelineChanged(Timeline timeline, Object manifest) {
 
-        }
 
         @Override
         public void onTracksChanged(TrackGroupArray trackGroupArray, TrackSelectionArray trackSelectionArray) {
@@ -384,11 +381,6 @@ public class VideoPlayerActivity extends ThemeableActivity {
 
         @Override
         public void onPlayerError(ExoPlaybackException error) {
-
-        }
-
-        @Override
-        public void onPositionDiscontinuity() {
 
         }
 
