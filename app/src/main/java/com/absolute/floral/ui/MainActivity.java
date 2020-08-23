@@ -54,6 +54,11 @@ import com.absolute.floral.ui.widget.FastScrollerRecyclerView;
 import com.absolute.floral.ui.widget.GridMarginDecoration;
 import com.absolute.floral.util.SortUtil;
 import com.absolute.floral.util.Util;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -61,7 +66,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends ThemeableActivity implements CheckRefreshClickListener{
+public class MainActivity extends ThemeableActivity implements ShowRoundDialogFragment.CheckRefreshClickListener {
 
     public static final String REFRESH_MEDIA = "REFRESH_MEDIA";
     public static final String PICK_PHOTOS = "PICK_PHOTOS";
@@ -70,6 +75,8 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
     public static final int REFRESH_PHOTOS_REQUEST_CODE = 7;
     public static final int REMOVABLE_STORAGE_PERMISSION_REQUEST_CODE = 8;
     public static final int SETTINGS_REQUEST_CODE = 9;
+    private InterstitialAd mInterstitialAd;
+    private boolean hasShownAd = false;
 
     //needed for sharedElement-Transition in Nested RecyclerView Style
     private NestedRecyclerViewAlbumHolder sharedElementViewHolder;
@@ -135,6 +142,18 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MobileAds.initialize(this, initializationStatus -> {
+        });
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.admob_interstitial));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.setAdListener(new AdListener());
+
+        AdView adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
         refreshPhotos();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             getWindow().getDecorView();
@@ -583,6 +602,12 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                // show fullscreen ad
+                if(!hasShownAd && mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                    hasShownAd = true;
+                }
+
                 Intent i = new Intent();
                 i.setAction(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
                 if (i.resolveActivity(getPackageManager()) != null) {

@@ -2,8 +2,10 @@ package com.absolute.floral.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +15,22 @@ import com.absolute.floral.R;
 
 
 public class ShowRoundDialogFragment extends RoundedBottomSheet {
+    interface CheckRefreshClickListener {
+        void onSortClick();
+
+        void OnShareClick();
+
+        void onHiddenClick();
+
+        void onExplorerClick();
+
+        void onSettingsClick();
+
+        void onAboutClick();
+    }
 
 
-    TextView sortext, hiddenfolder, filexplorer, settings, about,share;
+    TextView sortext, hiddenfolder, filexplorer, settings, about, share;
     private CheckRefreshClickListener mCheckSharingListener;
     private CheckRefreshClickListener mCheckHiddenListener;
     private CheckRefreshClickListener mCheckExplorerListener;
@@ -36,7 +51,7 @@ public class ShowRoundDialogFragment extends RoundedBottomSheet {
         mCheckSettingsListener = (CheckRefreshClickListener) context;
         mCheckAboutListener = (CheckRefreshClickListener) context;
         mCheckSortClickListener = (CheckRefreshClickListener) context;
-        mCheckSharingListener=(CheckRefreshClickListener)context;
+        mCheckSharingListener = (CheckRefreshClickListener) context;
     }
 
     @Nullable
@@ -70,11 +85,3 @@ public class ShowRoundDialogFragment extends RoundedBottomSheet {
 }
 
 
-interface CheckRefreshClickListener {
-    void onSortClick();
-    void OnShareClick();
-    void onHiddenClick();
-    void onExplorerClick();
-    void onSettingsClick();
-    void onAboutClick();
-}

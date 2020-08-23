@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- these are admob test keys, need to replace the real keys -->
+    <string name="admob_id" translatable="false">[REPLACE_HERE]</string>
+    <string name="admob_banner" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="admob_interstitial" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+
+    <string name="email_support" translatable="false">jai135g@gmail.com</string>
+</resources>
