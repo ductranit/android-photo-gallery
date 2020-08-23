@@ -545,20 +545,13 @@ public class ItemActivity extends ThemeableActivity {
 
     public void editPhoto() {
         Uri uri = albumItem.getUri(this);
-
-        Intent intent = new Intent(Intent.ACTION_EDIT)
+        Intent i = new Intent(this, EditImageActivity.class)
                 .setDataAndType(uri, MediaType.getMimeType(this, uri))
                 .putExtra(EditImageActivity.IMAGE_PATH, albumItem.getPath())
                 .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
         try {
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                String title = getString(R.string.edit_item, albumItem.getType(this));
-                startActivity(Intent.createChooser(intent, title));
-            } else {
-                Toast.makeText(this, getString(R.string.edit_error, albumItem.getType(this)),
-                        Toast.LENGTH_SHORT).show();
-            }
+            startActivity(i);
         } catch (SecurityException se) {
             Toast.makeText(this, "Error (SecurityException)", Toast.LENGTH_SHORT).show();
             se.printStackTrace();
