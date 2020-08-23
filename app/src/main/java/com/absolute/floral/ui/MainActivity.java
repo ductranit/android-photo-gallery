@@ -257,13 +257,8 @@ public class MainActivity extends ThemeableActivity implements CheckRefreshClick
 
         final FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> fabClicked(view));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Drawable d = ContextCompat.getDrawable(this,
-                    R.drawable.camera1);
-            fab.setImageDrawable(d);
-        } else {
-            fab.setImageResource(R.drawable.camera1);
-        }
+        fab.setImageResource(R.drawable.ic_camera);
+
         Drawable d = fab.getDrawable();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         } else {

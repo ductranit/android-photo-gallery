@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/bottommenu"
-        android:icon="@drawable/camerablack"
+        android:icon="@drawable/floral"
         android:title="menu"
         android:visible="true"
         android:layout_width="25dp"
