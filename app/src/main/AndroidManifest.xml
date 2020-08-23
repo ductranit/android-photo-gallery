@@ -15,6 +15,7 @@
         android:label="Gallery"
         android:roundIcon="@drawable/floral"
         android:supportsRtl="true"
+        tools:replace="android:allowBackup"
         android:theme="@style/CameraRoll.Theme">
         <activity android:name="com.absolute.floral.ui.FirstActivity"
             android:theme="@style/SplashTheme">
