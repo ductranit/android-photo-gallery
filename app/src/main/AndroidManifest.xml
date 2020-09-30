@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- to set Wallpaper -->
     <uses-permission android:name="android.permission.SET_WALLPAPER" /> <!-- to show FileOperation progress as a notification -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
 
     <application
         android:name="com.absolute.floral.ui.CustomFontApp"
